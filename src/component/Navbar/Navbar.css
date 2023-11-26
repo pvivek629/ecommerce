@@ -1,0 +1,52 @@
+.navbar{
+    background-image: url(../image/header.jpg);
+    width: 100%;
+    height: 575px;
+    background-size: cover;
+}
+
+.navbarheader{
+    display: flex;
+    justify-content: space-between;
+    padding: 31px 31px 0px 31px;
+}
+
+.logo{
+
+}
+
+.navbardetail{
+    display: flex;
+    gap: 4rem;
+}
+
+.allproduct{
+    color: aliceblue;
+}
+
+.featured{
+    color: aliceblue;
+}
+
+.carticon{
+    color: aliceblue;
+}
+
+
+/* styles.css */
+.sidebar {
+    width: 0;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
+  .sidebar.open {
+    width: 250px;
+  }
+  

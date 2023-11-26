@@ -1,0 +1,142 @@
+.product{
+    
+}
+
+.productname{
+    display: flex;
+    margin: 32px 32px;
+}
+
+.productleft{
+    margin: 0;
+}
+
+.filter{
+    font-weight: 700;
+}
+
+.materialtext{
+    font-weight: 700;
+}
+
+.productmaterial{
+    margin-top: 15px
+}
+
+.productmateriallist{
+    list-style-type: none;
+    padding: 0;
+    line-height: 22px;
+    text-transform: capitalize;
+}
+
+.productcolor{
+    margin-top: 10px;
+}
+
+.colortext{
+    font-weight: 700;
+}
+
+.productcolorlist{
+    list-style-type: none;
+    padding: 0;
+    line-height: 22px;
+    text-transform: capitalize;
+}
+
+.productlisting{
+    margin: 0;
+}
+
+.productdetail{
+    list-style-type: none;
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.productdiv{
+    width: 332px;
+    height: 541px;
+}
+
+.productimage{
+    width: 332px;
+    height: 442px;
+    transition: filter 0.3s ease-in-out;
+    position: relative;
+}
+
+.productimage img{
+    width: 332px;
+    height: 442px;
+}
+
+.productnametext{
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 9px;
+}
+
+.productclass{
+    text-transform: uppercase;
+    font-size: 14px;
+    display: flex;
+    margin: 4px 0px;
+}
+
+.productdetailcolor{
+    margin: 0;
+}
+
+.productmaterialcolor{
+    margin: 0;
+    
+}
+
+.productmoney{
+    font-size: 14px;
+    color: #5A112B;
+}
+
+.pagination{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    justify-content: center;
+    gap: 11px;
+}
+
+.pagination button{
+    margin: 0;
+    border-radius: 12px;
+    border: none;
+    padding: 4px 8px;
+}
+
+.productimagehover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(169, 169, 169, 0.5); /* Grey with 50% opacity */
+}
+
+.add-to-cart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.add-to-cart p {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    background:none;
+    border: none;
+}
