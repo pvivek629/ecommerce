@@ -1,25 +1,46 @@
-// Sidebar.js
+import React, { useEffect, useState } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
 
-import React from 'react';
+const Sidebar = ({ isOpen, onClose, cartProducts, setCartProducts }) => {
 
-const Sidebar = ({ isOpen, onClose, selectedProducts, onRemoveFromCart }) => {
-    console.log(selectedProducts,"hh")
+  const [finalProducts, setFinalProducts] = useState(cartProducts);
+  useEffect(() => {
+    setFinalProducts(cartProducts);
+  }, [cartProducts]);
+  const onRemoveFromCart = (indexSelected) => {
+    setCartProducts(finalProducts.filter(function (val, index) {
+      return index !== indexSelected;
+    }));
+
+  }
+
   return (
     <div className={`sidebar ${isOpen ? 'open' : ''}`}>
-      <h2>Selected Products</h2>
-      {/* <ul>
-        {selectedProducts.map((selectedProduct, index) => (
+      <CloseIcon className='closeicon' onClick={onClose}/>
+      <h2 className='shoppingheader'>Shopping Cart</h2>
+      <ul className='sidebardata'>
+        {finalProducts && finalProducts.map((selectedProduct, index) => (
           <li key={index}>
-            <img src={selectedProduct.image} alt={selectedProduct.name} />
-            <p>Name: {selectedProduct.name}</p>
-            <p>Color: {selectedProduct.color}</p>
-            <p>Material: {selectedProduct.material}</p>
-            <p>Price: INR {selectedProduct.price}</p>
-            <button onClick={() => onRemoveFromCart(index)}>Remove</button>
+            <div className='sidebardiv'>
+              <div>
+                <img className='sidebarimage' src={selectedProduct.image} alt={selectedProduct.name} width={100} height={100} />
+              </div>
+              <div className='sidebardatadiv'>
+                <p className='sideheadername'>{selectedProduct.name}</p>
+                <div className='sidebarlist'>
+                  <p className='sidebarcolorlist'>{selectedProduct.color}</p>
+                  <p className='sidebarmateriallist'>{selectedProduct.material}</p>
+                </div>
+                <p className='sidebarmoney'>INR {selectedProduct.price}</p>
+                <button onClick={() => onRemoveFromCart(index)} className='sidebarremove'>Remove</button>
+              </div>
+            </div>
+
+
           </li>
         ))}
-      </ul> */}
-      <button onClick={onClose}>Close</button>
+      </ul>
+      
     </div>
   );
 };

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import "./Product.css";
 
-const Product = ({ onAddToCart, onRemoveFromCart }) => {
+const Product = ({ onAddToCart,setCartProducts }) => {
     const [products, setProducts] = useState([]);
     const [colors, setColors] = useState([]);
     const [materials, setMaterials] = useState([]);
@@ -60,8 +60,10 @@ const Product = ({ onAddToCart, onRemoveFromCart }) => {
 
     const handleProductClick = (productId) => {
         const clickedProduct = products.find(product => product.id === productId);
-        setSelectedProducts(prevProducts => [...prevProducts, clickedProduct]);
+        setCartProducts(prevProducts => [...prevProducts, clickedProduct]);
         setSidebarVisible(true);
+        
+        
     };
 
     const handleRemoveClick = (index) => {
@@ -155,7 +157,7 @@ const Product = ({ onAddToCart, onRemoveFromCart }) => {
             </div>
 
             {/* Sidebar for selected product details */}
-            <div className="sidebarone">
+            {/* <div className="sidebarone">
                 <h2>Selected Products</h2>
                 <ul>
                     {selectedProducts.map((selectedProduct, index) => (
@@ -169,7 +171,7 @@ const Product = ({ onAddToCart, onRemoveFromCart }) => {
                         </li>
                     ))}
                 </ul>
-            </div>
+            </div> */}
         </div>
     );
 }
