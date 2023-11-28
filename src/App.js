@@ -8,10 +8,14 @@ import { useState } from 'react';
 function App() {
   // single state to manage cart between sidebar & products.
   const [cartProducts,setCartProducts]=useState('');
+  const [cartNumber, setCartNumber] = useState(0);
+  const [isFeaturedClicked, setFeaturedClicked] = useState(false);
+  const [isAllProductsClicked, setAllProductsClicked] = useState(false);
+
   return (
     <div className="App">
-      <Navbar cartProducts={cartProducts} setCartProducts={setCartProducts} />
-      <Product setCartProducts={setCartProducts}/>
+      <Navbar cartProducts={cartProducts} setCartProducts={setCartProducts} cartNumber={cartNumber} setCartNumber={setCartNumber} isFeaturedClicked={isFeaturedClicked} setFeaturedClicked={setFeaturedClicked} isAllProductsClicked={isAllProductsClicked} setAllProductsClicked={setAllProductsClicked}/>
+      <Product setCartProducts={setCartProducts} setCartNumber={setCartNumber} isFeaturedClicked={isFeaturedClicked} isAllProductsClicked={isAllProductsClicked}/>
       <Footer/>
     </div>
   );

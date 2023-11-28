@@ -1,22 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 
-const Sidebar = ({ isOpen, onClose, cartProducts, setCartProducts }) => {
+const Sidebar = ({ isOpen, onClose, cartProducts, setCartProducts,setCartNumber }) => {
 
   const [finalProducts, setFinalProducts] = useState(cartProducts);
-  useEffect(() => {
-    setFinalProducts(cartProducts);
-  }, [cartProducts]);
-  const onRemoveFromCart = (indexSelected) => {
-    setCartProducts(finalProducts.filter(function (val, index) {
-      return index !== indexSelected;
-    }));
 
-  }
+  useEffect(() => {
+    // Retrieve selectedProducts from local storage
+    const storedSelectedProducts = localStorage.getItem('selectedProducts');
+    if (storedSelectedProducts) {
+      setFinalProducts(JSON.parse(storedSelectedProducts));
+    }
+  }, [cartProducts]);
+
+  const onRemoveFromCart = (indexSelected) => {
+    setCartProducts(finalProducts.filter((val, index) => index !== indexSelected));
+
+    // Remove item from selectedProducts and update local storage
+    const updatedSelectedProducts = [...finalProducts];
+    updatedSelectedProducts.splice(indexSelected, 1);
+    setFinalProducts(updatedSelectedProducts);
+    localStorage.setItem('selectedProducts', JSON.stringify(updatedSelectedProducts));
+
+    // Update the cart number in the Navbar
+    setCartNumber(prevCartNumber => prevCartNumber - 1);
+  };
 
   return (
     <div className={`sidebar ${isOpen ? 'open' : ''}`}>
-      <CloseIcon className='closeicon' onClick={onClose}/>
+      <CloseIcon className='closeicon' onClick={onClose} />
       <h2 className='shoppingheader'>Shopping Cart</h2>
       <ul className='sidebardata'>
         {finalProducts && finalProducts.map((selectedProduct, index) => (
@@ -40,7 +52,7 @@ const Sidebar = ({ isOpen, onClose, cartProducts, setCartProducts }) => {
           </li>
         ))}
       </ul>
-      
+
     </div>
   );
 };

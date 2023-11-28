@@ -25,6 +25,7 @@
     font-weight: 300;
     line-height: normal;
     z-index: 3;
+    cursor: pointer;
 }
 
 .featured {
@@ -35,6 +36,7 @@
     font-weight: 300;
     line-height: normal;
     z-index: 3;
+    cursor: pointer;
 }
 
 .shoppingcart {
@@ -44,6 +46,7 @@
 
 .carticon {
     color: aliceblue;
+    cursor: pointer;
 }
 
 .cartnumber {
@@ -82,7 +85,9 @@
 .sidebardata {
     list-style-type: none;
     overflow-y: scroll;
-    height: 1000px;
+    height: 600px;
+    margin-top: 18px;
+    scroll-behavior: smooth;
 }
 
 .shoppingheader {
@@ -171,3 +176,4 @@
     line-height: normal;
     margin-top: 15px;
 }
+
