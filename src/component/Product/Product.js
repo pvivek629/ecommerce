@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import "./Product.css";
 
-const Product = ({ onAddToCart,setCartProducts,setCartNumber,isAllProductsClicked,isFeaturedClicked}) => {
+const Product = ({ onAddToCart, setCartProducts, setCartNumber, isAllProductsClicked, isFeaturedClicked }) => {
     const [products, setProducts] = useState([]);
     const [colors, setColors] = useState([]);
     const [materials, setMaterials] = useState([]);
@@ -47,21 +47,21 @@ const Product = ({ onAddToCart,setCartProducts,setCartNumber,isAllProductsClicke
     useEffect(() => {
         const allProductsUrl = 'https://api.sheety.co/af35b536915ec576818d468cf2a6505c/reactjsTest/products';
         const featuredProductIdsUrl = 'https://api.sheety.co/af35b536915ec576818d468cf2a6505c/reactjsTest/featured';
-    
+
         const fetchProducts = async () => {
             try {
                 const [allProductsResponse, featuredProductIdsResponse] = await Promise.all([
                     fetch(allProductsUrl, { headers: { Authorization: 'Bearer Ex9yLyRU7wvyxfblpq5HAhfQqUP1vIyo' } }),
                     fetch(featuredProductIdsUrl, { headers: { Authorization: 'Bearer Ex9yLyRU7wvyxfblpq5HAhfQqUP1vIyo' } }),
                 ]);
-        
+
                 const [allProductsData, featuredProductIdsData] = await Promise.all([
                     allProductsResponse.json(),
                     featuredProductIdsResponse.json(),
                 ]);
-        
+
                 const allProducts = allProductsData.products || [];
-        
+
                 if (isFeaturedClicked) {
                     if (featuredProductIdsData.featured) {
                         const featuredProductIds = featuredProductIdsData.featured.map(product => product.productId);
@@ -83,18 +83,18 @@ const Product = ({ onAddToCart,setCartProducts,setCartNumber,isAllProductsClicke
         };
         fetchProducts();
     }, [isFeaturedClicked]);
-    
+
     const handleColorClick = (colorId) => {
         setSelectedColor(colorId);
         setSelectedMaterial('');
-        setCurrentPage(1); // Reset to the first page when color is clicked
+        setCurrentPage(1);
         setHoveredProductId(null);
     };
 
     const handleMaterialClick = (materialId) => {
         setSelectedMaterial(materialId);
         setSelectedColor('');
-        setCurrentPage(1); // Reset to the first page when material is clicked
+        setCurrentPage(1);
         setHoveredProductId(null);
     };
 
@@ -107,8 +107,8 @@ const Product = ({ onAddToCart,setCartProducts,setCartNumber,isAllProductsClicke
         setCartProducts(prevProducts => [...prevProducts, clickedProduct]);
         setSidebarVisible(true);
         setCartNumber(prevCartNumber => prevCartNumber + 1);
-      };
-      
+    };
+
     const handleRemoveClick = (index) => {
         setSelectedProducts(prevProducts => prevProducts.filter((_, i) => i !== index));
     };

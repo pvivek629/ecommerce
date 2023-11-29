@@ -3,7 +3,7 @@ import "./Navbar.css";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Sidebar from './Sidebar';
 
-function Navbar({ cartProducts, setCartProducts,setCartNumber,cartNumber,isFeaturedClicked, isAllProductsClicke,setFeaturedClicked,setAllProductsClicked }) {
+function Navbar({ cartProducts, setCartProducts, setCartNumber, cartNumber, isFeaturedClicked, isAllProductsClicke, setFeaturedClicked, setAllProductsClicked }) {
 
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
@@ -13,21 +13,21 @@ function Navbar({ cartProducts, setCartProducts,setCartNumber,cartNumber,isFeatu
   }, []);
 
   const handleSidebarToggle = () => {
-  setSidebarOpen(!isSidebarOpen);
-  const storedSelectedProducts = JSON.parse(localStorage.getItem('selectedProducts')) || [];
-  setCartNumber(storedSelectedProducts.length);
-};
+    setSidebarOpen(!isSidebarOpen);
+    const storedSelectedProducts = JSON.parse(localStorage.getItem('selectedProducts')) || [];
+    setCartNumber(storedSelectedProducts.length);
+  };
 
 
-const handleFeaturedClick = () => {
-  setFeaturedClicked(true);
-  setAllProductsClicked(false);
-};
+  const handleFeaturedClick = () => {
+    setFeaturedClicked(true);
+    setAllProductsClicked(false);
+  };
 
-const handleAllProductsClick = () => {
-  setAllProductsClicked(true);
-  setFeaturedClicked(false);
-};
+  const handleAllProductsClick = () => {
+    setAllProductsClicked(true);
+    setFeaturedClicked(false);
+  };
 
   return (
     <div className='navbar'>
@@ -37,13 +37,13 @@ const handleAllProductsClick = () => {
 
         </div>
         <div className="navbardetail">
-        <p className="allproduct" onClick={handleAllProductsClick}>All Products</p>
-        <p className="featured" onClick={handleFeaturedClick}>Featured Products</p>
+          <p className="allproduct" onClick={handleAllProductsClick}>All Products</p>
+          <p className="featured" onClick={handleFeaturedClick}>Featured Products</p>
           <div className='shoppingcart'>
-          <ShoppingCartIcon className='carticon' onClick={handleSidebarToggle} />
-          {cartNumber ? <b className='cartnumber'>{cartNumber}</b> : ''}
-        </div>
-          <Sidebar setCartNumber={setCartNumber} cartProducts={cartProducts}  setCartProducts={setCartProducts} isOpen={isSidebarOpen} onClose={handleSidebarToggle} />
+            <ShoppingCartIcon className='carticon' onClick={handleSidebarToggle} />
+            {cartNumber ? <b className='cartnumber'>{cartNumber}</b> : ''}
+          </div>
+          <Sidebar setCartNumber={setCartNumber} cartProducts={cartProducts} setCartProducts={setCartProducts} isOpen={isSidebarOpen} onClose={handleSidebarToggle} />
 
         </div>
       </div>

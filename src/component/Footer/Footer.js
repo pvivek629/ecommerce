@@ -25,7 +25,7 @@ function Footer() {
                         <source srcSet={paymentlogo} type="image/webp" />
                         <img className='footerpayment' src={payment} alt="" />
                     </picture>
-                    
+
                 </div>
                 <div className='footerright'>
                     <p className='footerdisclaimer'>Website protected by</p>
@@ -33,7 +33,7 @@ function Footer() {
                         <source srcSet={footerlogowebp} type="image/webp" />
                         <img src={footerlogo} alt="" className='footerlogo' />
                     </picture>
-                    
+
                 </div>
             </div>
         </div>

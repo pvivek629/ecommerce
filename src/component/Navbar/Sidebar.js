@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 
-const Sidebar = ({ isOpen, onClose, cartProducts, setCartProducts,setCartNumber }) => {
+const Sidebar = ({ isOpen, onClose, cartProducts, setCartProducts, setCartNumber }) => {
 
   const [finalProducts, setFinalProducts] = useState(cartProducts);
 
