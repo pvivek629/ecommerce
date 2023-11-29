@@ -6,7 +6,6 @@ const Sidebar = ({ isOpen, onClose, cartProducts, setCartProducts,setCartNumber 
   const [finalProducts, setFinalProducts] = useState(cartProducts);
 
   useEffect(() => {
-    // Retrieve selectedProducts from local storage
     const storedSelectedProducts = localStorage.getItem('selectedProducts');
     if (storedSelectedProducts) {
       setFinalProducts(JSON.parse(storedSelectedProducts));
@@ -15,14 +14,10 @@ const Sidebar = ({ isOpen, onClose, cartProducts, setCartProducts,setCartNumber 
 
   const onRemoveFromCart = (indexSelected) => {
     setCartProducts(finalProducts.filter((val, index) => index !== indexSelected));
-
-    // Remove item from selectedProducts and update local storage
     const updatedSelectedProducts = [...finalProducts];
     updatedSelectedProducts.splice(indexSelected, 1);
     setFinalProducts(updatedSelectedProducts);
     localStorage.setItem('selectedProducts', JSON.stringify(updatedSelectedProducts));
-
-    // Update the cart number in the Navbar
     setCartNumber(prevCartNumber => prevCartNumber - 1);
   };
 

@@ -45,20 +45,45 @@ const Product = ({ onAddToCart,setCartProducts,setCartNumber,isAllProductsClicke
     }, []);
 
     useEffect(() => {
-        // Fetch all products initially or fetch only featured products based on isFeaturedClicked
-        const apiUrl = isAllProductsClicked
-          ? 'https://api.sheety.co/af35b536915ec576818d468cf2a6505c/reactjsTest/products'
-          : 'https://api.sheety.co/af35b536915ec576818d468cf2a6505c/reactjsTest/featured';
+        const allProductsUrl = 'https://api.sheety.co/af35b536915ec576818d468cf2a6505c/reactjsTest/products';
+        const featuredProductIdsUrl = 'https://api.sheety.co/af35b536915ec576818d468cf2a6505c/reactjsTest/featured';
     
-        fetch(apiUrl, {
-          headers: {
-            Authorization: 'Bearer Ex9yLyRU7wvyxfblpq5HAhfQqUP1vIyo',
-          },
-        })
-          .then(response => response.json())
-          .then(data => setProducts(data.products || []));
-      }, [isFeaturedClicked, isAllProductsClicked]);
-
+        const fetchProducts = async () => {
+            try {
+                const [allProductsResponse, featuredProductIdsResponse] = await Promise.all([
+                    fetch(allProductsUrl, { headers: { Authorization: 'Bearer Ex9yLyRU7wvyxfblpq5HAhfQqUP1vIyo' } }),
+                    fetch(featuredProductIdsUrl, { headers: { Authorization: 'Bearer Ex9yLyRU7wvyxfblpq5HAhfQqUP1vIyo' } }),
+                ]);
+        
+                const [allProductsData, featuredProductIdsData] = await Promise.all([
+                    allProductsResponse.json(),
+                    featuredProductIdsResponse.json(),
+                ]);
+        
+                const allProducts = allProductsData.products || [];
+        
+                if (isFeaturedClicked) {
+                    if (featuredProductIdsData.featured) {
+                        const featuredProductIds = featuredProductIdsData.featured.map(product => product.productId);
+                        if (featuredProductIds.length > 0) {
+                            const filteredFeaturedProducts = allProducts.filter(product => featuredProductIds.includes(product.id));
+                            setProducts(filteredFeaturedProducts);
+                        } else {
+                            console.warn('No Featured Product Ids found.');
+                        }
+                    } else {
+                        console.warn('Featured Product Ids data is undefined.');
+                    }
+                } else {
+                    setProducts(allProducts);
+                }
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+        fetchProducts();
+    }, [isFeaturedClicked]);
+    
     const handleColorClick = (colorId) => {
         setSelectedColor(colorId);
         setSelectedMaterial('');
@@ -75,32 +100,15 @@ const Product = ({ onAddToCart,setCartProducts,setCartNumber,isAllProductsClicke
 
     const handleProductClick = (productId) => {
         const clickedProduct = products.find(product => product.id === productId);
-      
-        // Update selectedProducts state and local storage
         setSelectedProducts(prevSelectedProducts => [...prevSelectedProducts, clickedProduct]);
-      
-        // Retrieve existing data from local storage
         const storedSelectedProducts = JSON.parse(localStorage.getItem('selectedProducts')) || [];
-      
-        // Merge existing data with new data and save to local storage
         const updatedSelectedProducts = [...storedSelectedProducts, clickedProduct];
         localStorage.setItem('selectedProducts', JSON.stringify(updatedSelectedProducts));
-      
-        // Add the clicked product to the cart
         setCartProducts(prevProducts => [...prevProducts, clickedProduct]);
-      
-        // Show the sidebar
         setSidebarVisible(true);
-      
-        // Update the cart number in the Navbar
         setCartNumber(prevCartNumber => prevCartNumber + 1);
       };
       
-    
-    
-    
-    
-
     const handleRemoveClick = (index) => {
         setSelectedProducts(prevProducts => prevProducts.filter((_, i) => i !== index));
     };
@@ -191,22 +199,6 @@ const Product = ({ onAddToCart,setCartProducts,setCartNumber,isAllProductsClicke
                 </div>
             </div>
 
-            {/* Sidebar for selected product details */}
-            {/* <div className="sidebarone">
-                <h2>Selected Products</h2>
-                <ul>
-                    {selectedProducts.map((selectedProduct, index) => (
-                        <li key={index}>
-                            <img src={selectedProduct.image} alt={selectedProduct.name} />
-                            <p>Name: {selectedProduct.name}</p>
-                            <p>Color: {colors.find(c => c.id === selectedProduct.colorId)?.name}</p>
-                            <p>Material: {materials.find(m => m.id === selectedProduct.materialId)?.name}</p>
-                            <p>Price: INR {selectedProduct.price}</p>
-                            <button onClick={() => handleRemoveClick(index)}>Remove</button>
-                        </li>
-                    ))}
-                </ul>
-            </div> */}
         </div>
     );
 }

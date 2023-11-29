@@ -6,20 +6,14 @@ import Sidebar from './Sidebar';
 function Navbar({ cartProducts, setCartProducts,setCartNumber,cartNumber,isFeaturedClicked, isAllProductsClicke,setFeaturedClicked,setAllProductsClicked }) {
 
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  // const [cartNumber, setCartNumber] = useState(0);
 
   useEffect(() => {
-    // Retrieve selectedProducts from local storage
     const storedSelectedProducts = JSON.parse(localStorage.getItem('selectedProducts')) || [];
-    
-    // Update cartNumber based on the length of selectedProducts
     setCartNumber(storedSelectedProducts.length);
   }, []);
 
   const handleSidebarToggle = () => {
   setSidebarOpen(!isSidebarOpen);
-
-  // Retrieve selectedProducts from local storage and update cart number
   const storedSelectedProducts = JSON.parse(localStorage.getItem('selectedProducts')) || [];
   setCartNumber(storedSelectedProducts.length);
 };
@@ -27,12 +21,12 @@ function Navbar({ cartProducts, setCartProducts,setCartNumber,cartNumber,isFeatu
 
 const handleFeaturedClick = () => {
   setFeaturedClicked(true);
-  setAllProductsClicked(false); // Reset all products flag
+  setAllProductsClicked(false);
 };
 
 const handleAllProductsClick = () => {
   setAllProductsClicked(true);
-  setFeaturedClicked(false); // Reset featured products flag
+  setFeaturedClicked(false);
 };
 
   return (
